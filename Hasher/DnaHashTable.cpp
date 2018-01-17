@@ -11,12 +11,12 @@
 
 DnaHashTable::DnaHashTable(int w) {
 	wordLength = w;
-	hashs = new vector<int>(pow(4, wordLength), 0);
+	hashs = vector<int>(pow(4, wordLength), 0);
 }
 
 DnaHashTable::~DnaHashTable() {
-	hashs->clear();
-	delete hashs;
+	hashs.clear();
+	vector<int>().swap(hashs);
 }
 
 int DnaHashTable::hashWord(string word) {
@@ -85,11 +85,12 @@ void DnaHashTable::updateConsecutiveWords(string line)
 
 void DnaHashTable::printTable()
 {
-	for (size_t i = 0; i < hashs; i++)
+	cout<<"Got to print."<<endl;
+	for (size_t i = 0; i < hashs.size(); i++)
 	{
 		if(hashs[i] != 0)
 		{
-			cout << i + " " + hashs[i];
+			cout << i + " " + hashs[i]<<endl;
 		}
 	}
 }

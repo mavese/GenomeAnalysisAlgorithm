@@ -17,7 +17,7 @@ using namespace std;
 
 class DnaHashTable {
 private:
-	vector<int> * hashs;
+	vector<int> hashs;
 	int wordLength;
 	int hashWord(string);
 	vector<int> hashConsecutiveWords(string, int);
@@ -28,7 +28,7 @@ public:
 	DnaHashTable(int);
 	virtual ~DnaHashTable();
 	int updateWord(string);
-	void updateConsecutiveWords(string, int);
+	void updateConsecutiveWords(string);
 	void printTable();
 
 	/**

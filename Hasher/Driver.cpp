@@ -12,17 +12,17 @@ int main(int argc, char** argv)
 	int wordLength = atoi(argv[1]);
 	string file = argv[2];
 	// Build the hash table from the input file
-	DnaHashTable table(wordLength);
-	ifstream data(file);
+	 DnaHashTable table(wordLength);
+	ifstream data(file.c_str());
 	string line;
 	if (data.is_open()) 
 	{
 		while (getline(data, line)) 
 		{
-			table.updateConsecutiveWords(line);
+			 table.updateConsecutiveWords(line);
 		}
 	}
-	table.printTable();
+	 table.printTable();
 	data.close();
 	return 0;
 }
