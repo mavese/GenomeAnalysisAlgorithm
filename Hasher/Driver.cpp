@@ -1,21 +1,3 @@
-///*
-// * FirstProjectDataStrucs.cpp
-// *
-// *  Created on: Jan 16, 2018
-// *      Author: zakarota
-// */
-//
-//#include "FirstProjectDataStrucs.h"
-//
-//FirstProjectDataStrucs::FirstProjectDataStrucs() {
-//	// TODO Auto-generated constructor stub
-//
-//}
-//
-//FirstProjectDataStrucs::~FirstProjectDataStrucs() {
-//	// TODO Auto-generated destructor stub
-//}
-
 //Author: Matteo Mantese
 
 #include "DnaHashTable.h";
