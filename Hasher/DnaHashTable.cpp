@@ -67,9 +67,29 @@ int  DnaHashTable::getLetterVal(char c)
 	return-1;
 }
 
-void updateWord(string word)
+int DnaHashTable::updateWord(string word)
 {
-	hashs[hashWord(word)] += 1;
+	int idx = hashWord(word);
+	hashs[idx] += 1;
+	return idx;
 }
 
-void updateConsecutiveWords(string line)
+void DnaHashTable::updateConsecutiveWords(string line)
+{
+	vector<int> nums = hashConsecutiveWords(line, updateWord(line.substr(0, wordLength)));
+	for (int i = 0; i < nums.size(); i++)
+	{
+		hashs[nums[i]] += 1;
+	}
+}
+
+void DnaHashTable::printTable()
+{
+	for (size_t i = 0; i < hashs; i++)
+	{
+		if(hashs[i] != 0)
+		{
+			cout << i + " " + hashs[i];
+		}
+	}
+}

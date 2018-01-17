@@ -11,9 +11,7 @@
 #include <vector>
 #include <iostream>
 #include<vector>
-#include<fstream>
 #include<string>
-#include<bitset>
 
 using namespace std;
 
@@ -29,6 +27,9 @@ private:
 public:
 	DnaHashTable(int);
 	virtual ~DnaHashTable();
+	int updateWord(string);
+	void updateConsecutiveWords(string, int);
+	void printTable();
 
 	/**
 	 * update for one word

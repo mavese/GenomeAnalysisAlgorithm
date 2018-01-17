@@ -1,31 +1,28 @@
 //Author: Matteo Mantese
 
-#include "DnaHashTable.h";
+#include <cstdlib>
+#include <string>
+#include<fstream>
+#include "DnaHashTable.h"
+using namespace std;
 
-int main() {
-	string line;
-	int wordLength;
-
-	// Get information from the user
-	cout << "Enter size of word: ";
-	cin >> wordLength;
-	string file;
-	cout << "Enter file name: ";
-	cin >> file;
-
+int main(int argc, char** argv) 
+{
+	//Get information from command line args
+	int wordLength = atoi(argv[1]);
+	string file = argv[2];
 	// Build the hash table from the input file
 	DnaHashTable table(wordLength);
-
 	ifstream data(file);
-	if (data.is_open()) {
-		while (getline(data, line)) {
-			int initIdx = hashWord(line.substr(0, wordLength));
-			cout << endl;
-			hashConsecutiveWords(line, initIdx);
+	string line;
+	if (data.is_open()) 
+	{
+		while (getline(data, line)) 
+		{
+			table.updateConsecutiveWords(line);
 		}
 	}
+	table.printTable();
 	data.close();
-	cout << "finished";
-	cin >> line;
 	return 0;
 }
