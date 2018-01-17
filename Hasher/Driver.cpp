@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 			 table.updateConsecutiveWords(line);
 		}
 	}
-	 table.printTable();
+	table.printTable();
 	data.close();
 	return 0;
 }

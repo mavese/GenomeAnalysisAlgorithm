@@ -9,20 +9,24 @@
 #include "DnaHashTable.h"
 #include<cmath>
 
-DnaHashTable::DnaHashTable(int w) {
+DnaHashTable::DnaHashTable(int w) 
+{
 	wordLength = w;
 	hashs = vector<int>(pow(4, wordLength), 0);
 }
 
-DnaHashTable::~DnaHashTable() {
+DnaHashTable::~DnaHashTable() 
+{
 	hashs.clear();
 	vector<int>().swap(hashs);
 }
 
-int DnaHashTable::hashWord(string word) {
+int DnaHashTable::hashWord(string word) 
+{
 	int binary = 0;
 	int wordNum;
-	for (size_t i = 0; i < word.length(); i++) {
+	for (size_t i = 0; i < word.length(); i++) 
+	{
 		wordNum = getLetterVal(word.at(i));
 		binary = binary << 2;
 		binary |= wordNum;
@@ -30,11 +34,14 @@ int DnaHashTable::hashWord(string word) {
 	return binary;
 }
 
-vector<int> DnaHashTable::hashConsecutiveWords(string line, int lastInd) {
+vector<int> DnaHashTable::hashConsecutiveWords(string line, int lastInd) 
+{
 	int wordNum;
 	vector<int> resultList;
-	for (size_t i = wordLength; i < line.size(); i++) {
-		lastInd = (lastInd << 2) & 256;
+	int mask = pow(2, 2*wordLength) -1;
+	for (size_t i = wordLength; i < line.size(); i++) 
+	{
+		lastInd = (lastInd << 2) & mask;
 		wordNum = getLetterVal(line.at(i));
 		lastInd |= wordNum;
 		resultList.push_back(lastInd);
@@ -85,12 +92,11 @@ void DnaHashTable::updateConsecutiveWords(string line)
 
 void DnaHashTable::printTable()
 {
-	cout<<"Got to print."<<endl;
 	for (size_t i = 0; i < hashs.size(); i++)
 	{
 		if(hashs[i] != 0)
 		{
-			cout << i + " " + hashs[i]<<endl;
+			cout << i << " " << hashs[i]<<endl;
 		}
 	}
 }
