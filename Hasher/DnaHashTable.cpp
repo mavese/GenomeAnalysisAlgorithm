@@ -36,16 +36,27 @@ int DnaHashTable::hashWord(string word)
 
 vector<int> DnaHashTable::hashConsecutiveWords(string line, int lastInd) 
 {
+	int letterCount = wordLength;
 	int wordNum;
-	vector<int> resultList;
 	int mask = pow(2, 2*wordLength) -1;
-	for (size_t i = wordLength; i < line.size(); i++) 
+	vector<int> resultList;
+	for (int i = 0; i < line.size(); i++) 
 	{
-		lastInd = (lastInd << 2) & mask;
 		wordNum = getLetterVal(line.at(i));
-		lastInd |= wordNum;
-		resultList.push_back(lastInd);
-		// hashs[LastInd] += 1;
+		if(wordNum != -1)
+		{
+			lastInd = (lastInd << 2) & mask;
+			lastInd |= wordNum;
+			letterCount++;
+			if (letterCount >= wordLength)
+			{
+				resultList.push_back(lastInd);
+			}
+		}
+		else
+		{
+			letterCount = 0;
+		}
 	}
 	return resultList;
 }
@@ -77,26 +88,53 @@ int  DnaHashTable::getLetterVal(char c)
 int DnaHashTable::updateWord(string word)
 {
 	int idx = hashWord(word);
-	hashs[idx] += 1;
+	if (idx != -1)
+	{
+		hashs[idx] += 1;
+	}
 	return idx;
 }
 
-void DnaHashTable::updateConsecutiveWords(string line)
+vector<int> DnaHashTable::updateConsecutiveWords(string line, int lastInd)
 {
-	vector<int> nums = hashConsecutiveWords(line, updateWord(line.substr(0, wordLength)));
+	vector<int> nums = hashConsecutiveWords(line, lastInd);
 	for (int i = 0; i < nums.size(); i++)
 	{
 		hashs[nums[i]] += 1;
 	}
+	return nums;
 }
 
 void DnaHashTable::printTable()
 {
+	string word = "";
+	int tempi;
 	for (size_t i = 0; i < hashs.size(); i++)
 	{
 		if(hashs[i] != 0)
 		{
-			cout << i << " " << hashs[i]<<endl;
+			tempi = i;
+			word.clear();
+			for (int idx = 0; idx < wordLength; idx++)
+			{
+				switch(tempi & 3)
+				{
+					case(0):
+						word = 'A' + word;
+						break;
+					case(1):
+						word = 'C' + word;
+						break;
+					case(2):
+						word = 'G' + word;
+						break;
+					default:
+						word = 'T' + word;
+						break;
+				}
+				tempi = tempi >> 2;
+			}
+			cout << word << " " << hashs[i]<<endl;
 		}
 	}
 }

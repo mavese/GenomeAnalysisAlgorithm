@@ -28,7 +28,7 @@ public:
 	DnaHashTable(int);
 	virtual ~DnaHashTable();
 	int updateWord(string);
-	void updateConsecutiveWords(string);
+	vector<int> updateConsecutiveWords(string, int);
 	void printTable();
 
 	/**
