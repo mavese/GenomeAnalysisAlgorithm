@@ -32,8 +32,15 @@ int DnaHashTable::hashWord(string word)
 	for (size_t i = 0; i < word.size(); i++) 
 	{
 		wordNum = getLetterVal(word.at(i));
-		binary = binary << 2;
-		binary |= wordNum;
+		if(wordNum != -1)
+		{
+			binary = binary << 2;
+			binary |= wordNum;
+		}
+		else
+		{
+			return -1;
+		}
 	}
 	return binary;
 }
