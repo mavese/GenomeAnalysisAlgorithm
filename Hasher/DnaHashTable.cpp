@@ -23,9 +23,13 @@ DnaHashTable::~DnaHashTable()
 
 int DnaHashTable::hashWord(string word) 
 {
+	if(word.size() < wordLength)
+	{
+		return -1;
+	}
 	int binary = 0;
 	int wordNum;
-	for (size_t i = 0; i < word.length(); i++) 
+	for (size_t i = 0; i < word.size(); i++) 
 	{
 		wordNum = getLetterVal(word.at(i));
 		binary = binary << 2;

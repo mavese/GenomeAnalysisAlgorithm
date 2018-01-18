@@ -18,6 +18,7 @@ int main(int argc, char** argv)
 	bool isHeader = false;
 	vector<int> results;
 	int lastInd;
+	string leftOver = "";
 	if (data.is_open()) 
 	{
 		while (getline(data, line)) 
@@ -38,14 +39,28 @@ int main(int argc, char** argv)
 				}
 				else
 				{
-					int i = 0;
-					for (i; i < line.size(); i++)
+					for (int i = 0; i < line.size(); i++)
 					{
-						lastInd = table.updateWord(line.substr(i, wordLength));
-						if (lastInd != -1)
+						if (line.size() >= i + wordLength)
+							{
+								if (leftOver.size() > 0)
+								{
+									lastInd = table.updateWord(leftOver + line.substr(i, wordLength - leftOver.size()));
+									leftOver = leftOver.substr(1, leftOver.size() - 2);//strip first character
+								}
+								else
+								{
+									lastInd = table.updateWord(line.substr(i, wordLength));
+								}
+								if (lastInd != -1)
+								{
+									results = table.updateConsecutiveWords(line.substr(i + wordLength, line.size()-(i+wordLength)), lastInd);
+									break;
+								}
+						}
+						else
 						{
-							results = table.updateConsecutiveWords(line.substr(i + wordLength, line.size()-(i+wordLength)), lastInd);
-							break;
+							leftOver = line.substr(i, wordLength - 1);
 						}
 					}
 				}
