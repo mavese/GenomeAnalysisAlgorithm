@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 		{
 			lastInd = 0;
 			isHeader = false;
-			if (line == ">chr2L")
+			if (line.at(0) == '>')
 			{
 				isHeader = true;
 			}
